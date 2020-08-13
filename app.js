@@ -2,7 +2,7 @@
 const todoInput = document.querySelector('.todoinput');
 const todoButton = document.querySelector('.todobtn');
 const todoList = document.querySelector('.todolist');
-
+var a = 1;
 
 //event listener
 todoButton.addEventListener('click',addToDo);
