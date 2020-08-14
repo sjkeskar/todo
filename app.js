@@ -2,11 +2,12 @@
 const todoInput = document.querySelector('.todoinput');
 const todoButton = document.querySelector('.todobtn');
 const todoList = document.querySelector('.todolist');
-var a = 1;
+const filteroption = document.querySelector('.filter-todo');
 
 //event listener
 todoButton.addEventListener('click',addToDo);
 todoList.addEventListener('click',delcheck);
+filteroption.addEventListener('click',filterTodo);
 
 //function
 function addToDo(event){
@@ -30,6 +31,7 @@ function addToDo(event){
     delbtn.innerHTML = '<i class="fas fa-trash"></i>';
     delbtn.classList.add("delbtn");
     tododiv.appendChild(delbtn);
+    tododiv.classList.add("a");
 
     todoList.appendChild(tododiv);
     todoInput.value = "";
@@ -39,11 +41,42 @@ function delcheck(e){
     const item = e.target;
 
     if(item.classList[0]==="delbtn"){
-        item.parentNode.remove();
+        item.parentNode.classList.add('fall');
+        item.parentNode.addEventListener('transitionend',function(){
+            item.parentNode.remove();
+        })
     } 
     
     if(item.classList[0]==="checkbtn"){
         var x =item.parentNode;
-        x.classList.toggle("completed");
+        x.classList.add("completed");
     }
+}
+
+function filterTodo(e){
+    const todos = todoList.childNodes;
+    console.log(todos);
+    todos.forEach((todo)=>{
+        var boo = todo.classList;
+        console.log(boo);
+        switch(e.target.value){
+            case "all":
+                todo.style.display = 'flex';
+                break;
+            case "completed":
+                if(boo){
+                    todo.style.display = "flex";
+                }else{
+                    todo.style.display = "none";
+                }
+                break;
+            case "uncompleted":
+                if(!boo){
+                    todo.style.display = "flex";
+                }else{
+                    todo.style.display = "none";
+                }
+                break;
+        }
+    })
 }
